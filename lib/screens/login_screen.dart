@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../constants.dart';
+import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,11 +18,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final formKey = GlobalKey<FormState>();
 
-  String? _validateUsername(String? value){
+  String? _validateEmail(String? value){
     if (value == null || value.isEmpty){
-      return "Please enter Username";
+      return "Please enter Email";
     }
-
     return null;
   }
 
@@ -34,11 +34,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double _heightDevice = MediaQuery.of(context).size.height;
     return SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(
             child: Container(
-              height: MediaQuery.of(context).size.height,
+              height: _heightDevice,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(background_login),
@@ -49,13 +50,13 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 90,),
+                  SizedBox(height: _heightDevice * 0.05,),
                   Center(
                     child: Image(
                      image: AssetImage(logoapp),
                     ),
                   ),
-                  const SizedBox(height: 70,),
+                  SizedBox(height: _heightDevice * 0.07,),
                   Text("Login",
                     textAlign: TextAlign.left,
                     style: TextStyle(
@@ -74,13 +75,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             TextFormField(
                               controller: _txtEmail,
-                              validator: _validateUsername,
+                              validator: _validateEmail,
                               style: TextStyle(color: Colors.white),
                               decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.person_outline_outlined, color: Colors.white),
-                                  labelText: "Username",
+                                  labelText: "Email",
                                   labelStyle: TextStyle(color: Colors.white),
-                                  hintText: "Username",
+                                  hintText: "Email",
                                   hintStyle: TextStyle(color: Colors.white),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white), // Border color
@@ -141,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       side: BorderSide(color: Colors.white)
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
+                                      padding: const EdgeInsets.all(15.0),
                                       child: Text('LOGIN',
                                         style: TextStyle(
                                             color: Colors.white
@@ -181,6 +182,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                           onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignUpScreen()),
+                            );
                           },
                           child: Text.rich(
                               TextSpan(
@@ -201,7 +206,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                     ],
                   ),
-
                 ],
               ),
             ),
