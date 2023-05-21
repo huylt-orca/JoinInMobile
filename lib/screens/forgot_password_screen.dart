@@ -7,14 +7,14 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import '../constants.dart';
 import 'login_screen.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class ForgotPassScreen extends StatefulWidget {
+  const ForgotPassScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<ForgotPassScreen> createState() => _ForgotPassScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _ForgotPassScreenState extends State<ForgotPassScreen> {
   TextEditingController _txtEmail = TextEditingController();
   TextEditingController _txtPassword = TextEditingController();
   TextEditingController _txtPasswordConfirm = TextEditingController();
@@ -26,8 +26,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (value == null || value.isEmpty){
       return "Please enter Password";
     }
-    if (value.length < 8 || value.length > 20){
-      return "Password must be between 8-20 characters";
+    if (value.length < 8 || value.length > 40){
+      return "Password must be between 8-40 characters";
     }
     return null;
   }
@@ -37,35 +37,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     return null;
   }
-  String? _validatePasswordConfirm(String? value){
-    if (value == null || value.isEmpty){
-      return "Please enter Confirmed Password";
-    }
-    if (value != _txtPassword.text){
-      return "Confirmed Password must be like Password";
-    }
-    return null;
-  }
-
-  // String? _validatePhone(String? value){
-  //   if (value == null || value.isEmpty){
-  //     return "Please enter Phone";
-  //   }
-  //   final pattern = r'^\d{10,11}$';
-  //   final regExp = RegExp(pattern);
-  //
-  //   if (!regExp.hasMatch(value)) {
-  //     return "Phone have 10-11 digits, not have special character";
-  //   }
-  //
-  //   return null;
-  // }
 
   @override
   Widget build(BuildContext context) {
     double _heightDevice = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: BackButton(color: Colors.black),
+        ),
         body: SingleChildScrollView(
           child: Container(
             height: _heightDevice,
@@ -86,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
                  SizedBox(height: _heightDevice * 0.07,),
-                Text("Sign Up",
+                Text("Forgot Password",
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Colors.white,
@@ -157,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             TextFormField(
                               obscureText: _isPasswordConfirmVisible,
                               controller: _txtPasswordConfirm,
-                              validator: _validatePasswordConfirm,
+                              validator: _validatePassword,
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
                                 prefixIcon: Icon(Icons.fingerprint, color: Colors.white,),
@@ -196,7 +178,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(15.0),
-                                  child: const Text ("Sign Up",style: TextStyle(
+                                  child: const Text ("Submit",style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold
@@ -204,32 +186,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                               ),
                             ),
-
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextButton(onPressed: () async{
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => LoginScreen()),
-                              );
-                            },
-                                child: Text.rich(
-                                    TextSpan(
-                                        text: "Already have an Account?",
-                                        style: TextStyle(color: Colors.black),
-                                        children: [
-                                          TextSpan(
-                                              text: " Login",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                fontSize: 15
-                                              )
-                                          )
-                                        ]
-                                    )
-                                )
-                            )
                           ],
                         ),
                       )
